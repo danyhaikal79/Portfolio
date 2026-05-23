@@ -137,9 +137,7 @@ body {
 /* ============ HERO ============ */
 .hero {
   padding: 96px 0 80px;
-  background:
-    radial-gradient(900px 500px at 90% -10%, var(--accent-soft), transparent 60%),
-    radial-gradient(700px 400px at 0% 110%, #eef3f7, transparent 60%);
+  background: radial-gradient(900px 500px at 90% -10%, var(--accent-soft), transparent 60%);
 }
 
 .eyebrow {
@@ -603,89 +601,22 @@ body {
 [data-theme="dark"] .theme-toggle .icon-sun { display: none; }
 [data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 
-/* ============ HERO PHOTO ============ */
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-.hero-photo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-  position: relative;
-}
-
-.photo-frame {
-  width: 320px;
-  height: 360px;
-  border-radius: 24px;
-  overflow: hidden;
-  position: relative;
-  background: linear-gradient(135deg, var(--accent-soft), var(--bg-alt));
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.photo-frame::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  background: linear-gradient(135deg, var(--accent), transparent 60%);
-  border-radius: 24px;
-  opacity: 0.15;
-  z-index: 0;
-}
-.photo-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: relative;
-  z-index: 1;
-}
-.photo-placeholder {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  color: var(--ink-mute);
-  z-index: 2;
-  position: absolute;
-  inset: 0;
-}
-.photo-frame.no-photo .photo-placeholder { display: flex; }
-.photo-frame.no-photo img { display: none; }
-.ph-initials {
-  font-size: 4rem;
-  font-weight: 800;
-  color: var(--accent);
-  letter-spacing: -0.04em;
-}
-.ph-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem;
-}
-
-.photo-badge {
+/* ============ HERO BADGE ============ */
+.hero-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
+  gap: 10px;
+  padding: 7px 16px;
   border-radius: 999px;
   background: var(--card);
   border: 1px solid var(--line);
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--ink-soft);
   font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 22px;
   box-shadow: var(--shadow);
 }
-.photo-badge .dot {
+.hero-badge .dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -695,17 +626,55 @@ body {
 }
 @keyframes pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  50% { opacity: 0.55; }
 }
 
 /* ============ ABOUT ME ============ */
 .about-grid {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 40px;
+  grid-template-columns: 260px 1fr;
+  gap: 48px;
   margin-top: 32px;
   align-items: start;
 }
+
+.about-photo-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: sticky;
+  top: 90px;
+}
+.about-photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.about-photo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+}
+.about-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 4px;
+}
+.about-caption strong {
+  font-size: 1rem;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.about-caption span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--ink-mute);
+}
+
 .about-text p {
   font-size: 1.05rem;
   color: var(--ink-soft);
@@ -714,10 +683,11 @@ body {
 }
 .about-text p strong { color: var(--ink); }
 
-.about-side {
+.about-stats {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 14px;
+  margin-top: 40px;
   padding: 24px;
   background: var(--card);
   border: 1px solid var(--line);
@@ -727,13 +697,13 @@ body {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 14px 16px;
+  padding: 16px 18px;
   border-radius: 10px;
   background: var(--bg-alt);
   border: 1px solid var(--line);
 }
 .stat-num {
-  font-size: 1.7rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: var(--accent);
   letter-spacing: -0.02em;
@@ -808,11 +778,9 @@ body {
   .grid-2 { grid-template-columns: 1fr; }
   .skills-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: repeat(2, 1fr); }
-  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-  .hero-photo { order: -1; }
-  .photo-frame { width: 240px; height: 280px; }
   .about-grid { grid-template-columns: 1fr; gap: 28px; }
-  .about-side { grid-template-columns: repeat(4, 1fr); }
+  .about-photo-wrap { position: static; max-width: 280px; }
+  .about-stats { grid-template-columns: repeat(2, 1fr); }
   .lang-grid { grid-template-columns: 1fr; }
 }
 
@@ -839,6 +807,5 @@ body {
   .project-card summary { padding: 20px; }
   .project-body { padding: 18px 20px 22px; }
   .contact-grid { grid-template-columns: 1fr; }
-  .about-side { grid-template-columns: repeat(2, 1fr); }
-  .photo-frame { width: 220px; height: 250px; }
+  .about-stats { grid-template-columns: 1fr; padding: 16px; }
 }

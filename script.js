@@ -66,7 +66,7 @@ const observer = new IntersectionObserver((entries) => {
 sections.forEach((s) => observer.observe(s));
 
 // 5) Subtle reveal-on-scroll for cards
-const revealEls = document.querySelectorAll('.card, .domain-card, .exp-item, .project-card, .edu-item, .skill-block, .contact-card, .lang-card, .about-stat');
+const revealEls = document.querySelectorAll('.card, .domain-card, .exp-item, .project-card, .edu-item, .skill-block, .contact-card, .lang-card, .about-stat, .about-photo-wrap');
 revealEls.forEach((el) => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(14px)';
@@ -102,16 +102,10 @@ const langObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.4 });
 langBars.forEach((bar) => langObserver.observe(bar));
 
-// 7) Handle missing profile image gracefully
-const profileImg = document.querySelector('.photo-frame img');
-if (profileImg) {
-  profileImg.addEventListener('error', () => {
-    profileImg.style.display = 'none';
-    profileImg.parentElement.classList.add('no-photo');
+// 7) Handle missing about-photo gracefully
+const aboutPhoto = document.querySelector('.about-photo');
+if (aboutPhoto) {
+  aboutPhoto.addEventListener('error', () => {
+    aboutPhoto.style.display = 'none';
   });
-  // If image already failed before listener attached
-  if (profileImg.complete && profileImg.naturalWidth === 0) {
-    profileImg.style.display = 'none';
-    profileImg.parentElement.classList.add('no-photo');
-  }
 }
