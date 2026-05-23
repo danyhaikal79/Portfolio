@@ -16,7 +16,36 @@ if (toggle && nav) {
   );
 }
 
-// 3) Highlight active section in the nav while scrolling
+// 3) Dark / Light mode toggle with localStorage persistence
+(function initTheme() {
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('theme-toggle');
+
+  // Load saved theme, or fall back to user's OS preference
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initial = saved || (prefersDark ? 'dark' : 'light');
+  root.setAttribute('data-theme', initial);
+
+  // Update meta theme-color (changes the browser chrome on mobile)
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  const setMeta = (mode) => {
+    if (metaTheme) metaTheme.setAttribute('content', mode === 'dark' ? '#0a0a0a' : '#ffffff');
+  };
+  setMeta(initial);
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      setMeta(next);
+    });
+  }
+})();
+
+// 4) Highlight active section in the nav while scrolling
 const sections = document.querySelectorAll('main section[id]');
 const navLinks = document.querySelectorAll('.nav a[href^="#"]');
 
@@ -36,8 +65,8 @@ const observer = new IntersectionObserver((entries) => {
 
 sections.forEach((s) => observer.observe(s));
 
-// 4) Subtle reveal-on-scroll for cards
-const revealEls = document.querySelectorAll('.card, .domain-card, .exp-item, .project-card, .edu-item, .skill-block, .contact-card');
+// 5) Subtle reveal-on-scroll for cards
+const revealEls = document.querySelectorAll('.card, .domain-card, .exp-item, .project-card, .edu-item, .skill-block, .contact-card, .lang-card, .about-stat');
 revealEls.forEach((el) => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(14px)';
@@ -55,3 +84,34 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 revealEls.forEach((el) => revealObserver.observe(el));
+
+// 6) Animate language bars when they scroll into view
+const langBars = document.querySelectorAll('.lang-bar span');
+langBars.forEach((bar) => {
+  const targetWidth = bar.style.width;
+  bar.style.width = '0%';
+  bar.dataset.target = targetWidth;
+});
+const langObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.style.width = entry.target.dataset.target;
+      langObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.4 });
+langBars.forEach((bar) => langObserver.observe(bar));
+
+// 7) Handle missing profile image gracefully
+const profileImg = document.querySelector('.photo-frame img');
+if (profileImg) {
+  profileImg.addEventListener('error', () => {
+    profileImg.style.display = 'none';
+    profileImg.parentElement.classList.add('no-photo');
+  });
+  // If image already failed before listener attached
+  if (profileImg.complete && profileImg.naturalWidth === 0) {
+    profileImg.style.display = 'none';
+    profileImg.parentElement.classList.add('no-photo');
+  }
+}
