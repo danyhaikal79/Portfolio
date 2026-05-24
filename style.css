@@ -1,5 +1,5 @@
 /* ============================================
-   Dany Haikal — Portfolio Styles
+   Dany Haikal · Portfolio Styles
    Clean, monochromatic, engineering-focused
    ============================================ */
 
@@ -12,7 +12,7 @@
   --ink-soft: #4a4a4a;
   --ink-mute: #8a8a8a;
   --line: #e6e6e3;
-  --accent: #c2410c;   /* warm orange — engineering vibe */
+  --accent: #c2410c;   /* warm orange · engineering vibe */
   --accent-soft: #fef3ec;
   --shadow: 0 2px 18px rgba(0,0,0,0.04);
   --radius: 14px;
@@ -296,8 +296,24 @@ body {
   transform: translateY(-2px);
 }
 .domain-icon {
-  font-size: 1.6rem;
-  margin-bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+.domain-card:hover .domain-icon {
+  background: var(--accent);
+  color: #fff;
+  transform: scale(1.05);
+}
+[data-theme="dark"] .domain-icon {
+  background: rgba(249, 115, 22, 0.12);
 }
 .domain-card h4 {
   font-size: 0.98rem;

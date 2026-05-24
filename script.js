@@ -1,5 +1,5 @@
 // ============================================
-// Dany Haikal — Portfolio interactions
+// Dany Haikal · Portfolio interactions
 // ============================================
 
 // 1) Set the current year in the footer
